@@ -112,20 +112,25 @@ function git-colour
 __prompt_dir="\w"
 function dir-on
 {
-    __prompt_dir=" \w"
+    __prompt_dir="\w"
     update-prompt
 }
 function dir-short
 {
-    __prompt_dir=" \W"
+    __prompt_dir="\W"
+    update-prompt
+}
+function dir-full
+{
+    __prompt_dir='$(pwd)'
     update-prompt
 }
 function dir-text
 {
-    __prompt_dir=" $(sed -e 's:\\:\\\\:g' <<<"$*")"
+    __prompt_dir="$(sed -e 's:\\:\\\\:g' <<<"$*")"
     update-prompt
 }
-function git-off
+function dir-off
 {
     __prompt_dir=""
     update-prompt
@@ -140,10 +145,10 @@ function dir-colour
 }
 
 
-__prompt_clock=" (\t)"
+__prompt_clock="(\t)"
 function clock-on
 {
-    __prompt_clock=" (\t)"
+    __prompt_clock="(\t)"
     update-prompt
 }
 function clock-off
@@ -193,18 +198,12 @@ function error-colour
 }
 
 
-__error="0"
-function __get_err
-{
-    __error="$?"
-}
-
 function __error
 {
-    if [ "$__error" = "0" ]; then
-        echo -n ''
+    if [ "$1" = "0" ]; then
+        echo -n ""
     else
-        echo -n "\[\033[{__prompt_error_colour}m\] (error: ${error})\[\033[00m\]"
+        echo -n "(error: $1) "
     fi
 }
 
@@ -232,24 +231,27 @@ function battery-colour
 
 function __battery
 {
-    echo -n "\[\033[${__prompt_battery_colour}m\]"
-    acpi --battery | while read info; do
-        echo -n " (${info})"
+    local __first=1
+    acpi --battery 2>/dev/null | while read info; do
+        if [ $__first = 1 ]; then
+            echo -n "(${info})"
+            __first=0
+        else
+            echo -n " (${info})"
+        fi
     done
-    echo -n "\[\033[00m\]"
 }
 
 
 __prompt_title=""
-
 case "$TERM" in
     xterm*|rxvt*)
-	PS1="\[\e]0;\u@\h: \w  ||  $(tty)\a\]"
+	__prompt_title="\033]0;\u@\h: \w  ||  $(tty)\a"
 	;;
 esac
 function title-on
 {
-    __prompt_title="\[\e]0;\u@\h: \w  ||  $(tty)\a\]"
+    __prompt_title="\033]0;\u@\h: \w  ||  $(tty)\a"
     update-prompt
 }
 function title-off
@@ -261,24 +263,52 @@ function title-off
 
 function update-prompt
 {
-    __host=""
-    __pts=""
-    __git=""
-    __user="\033[${__prompt_username_colour}m\]${__prompt_username}\[\033[00m\]"
-    __dir="\[\033[${__prompt_dir_colour}m\]${__prompt_dir}\[\033[00m\]"
-    __clock="\[\033[${__prompt_clock_colour}m\]${__prompt_clock}\[\033[00m\]"
-    __sh="\[\033[00m\033[${__prompt_dollar_colour}m\]\\$\[\033[00m\]"
+    __invisible="\[${__prompt_title}${__prompt_block}\033[00m\]"
+    PS1=""
+    if [ ! "${__prompt_username}" = "" ]; then
+        PS1="${PS1}\[\033[${__prompt_username_colour}m\]${__prompt_username}\[\033[00m\]"
+    fi
     if [ "${__prompt_hostname}" = "1" ]; then
-        __host="@\[\033[${__prompt_hostname_colour}m\]\h\[\033[00m\]"
+        if [ ! "${PS1}" = "" ]; then
+            PS1="${PS1}@"
+        fi
+        PS1="${PS1}\[\033[${__prompt_hostname_colour}m\]\h\[\033[00m\]"
     fi
     if [ "${__prompt_pts}" = "1" ]; then
-        __pts=".\[\033[${__prompt_pts_colour}m\]\l\[\033[00m\]"
+        if [ ! "${PS1}" = "" ]; then
+            PS1="${PS1}."
+        fi
+        PS1="${PS1}\[\033[${__prompt_pts_colour}m\]\l\[\033[00m\]"
     fi
-    if [ "${__prompt_git}" = "1" ] && git status -b -s 2>/dev/null >&2; then
-        __git='$(git status -b -s 2>/dev/null | cut -d \  -f 2)'
-        __git=":\[\033[${__prompt_git_colour}m\]${__git}\[\033[00m\]"
+    if [ "${__prompt_git}" = "1" ]; then
+        if [ ! "${PS1}" = "" ]; then
+            PS1="${PS1}"'$(git status -b -s 2>/dev/null >&2 && echo -n : || echo -n "")'
+        fi
+        __git='$((git status -b -s 2>/dev/null | cut -d \  -f 2 | head -n 1) || echo -n "")'
+        __git="\[\033[${__prompt_git_colour}m\]${__git}\[\033[00m\]"
+        PS1="${PS1}${__git}"
     fi
-    PS1='$(__get_err)'"${__prompt_title}\[${__prompt_block}\033[00m${__user}${__host}${__pts}${__git}:${__dir}${__clock}${__prompt_battery}"'$(__error)'"${__prompt_dual}${__sh} "
+    if [ ! "${__prompt_dir}" = "" ]; then
+        if [ ! "${PS1}" = "" ]; then
+            PS1="${PS1}: "
+        fi
+        PS1="${PS1}\[\033[${__prompt_dir_colour}m\]${__prompt_dir}\[\033[00m\]"
+    fi
+    if [ ! "${__prompt_clock}" = "" ]; then
+        if [ ! "${PS1}" = "" ]; then
+            PS1="${PS1} "
+        fi
+        PS1="${PS1}\[\033[${__prompt_clock_colour}m\]${__prompt_clock}\[\033[00m\]"
+    fi
+    if [ ! "${__prompt_battery}" = "" ]; then
+        if [ ! "${PS1}" = "" ]; then
+            PS1="${PS1} "
+        fi
+        PS1="${PS1}\[\033[${__prompt_battery_colour}m\]${__prompt_battery}\[\033[00m\]"
+    fi
+    __sh="\[\033[00m\033[${__prompt_dollar_colour}m\]\\$\[\033[00m\]"
+    __err="\[\033[${__prompt_error_colour}m\]"'$(__error $?)'"\[\033[00m\]"
+    PS1="${__invisible}${__err}${PS1}${__prompt_dual}${__sh} "
 }
 
 
