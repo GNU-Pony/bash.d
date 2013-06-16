@@ -43,7 +43,8 @@ __black_ncs_c='\e]4;0;rgb:00/00/00\e\\\e]4;1;rgb:CD/65/6C\e\\\e]4;2;rgb:32/A6/79
 if [ "$TERM" = "linux" ]; then
     function __c
     {
-        sed -e 's:]4:]P:g' -e 's:;::g' -e 's:rgb::g' -e 's:/::g' -e 's/://g' -e 's:\e\\::g'
+	sed -e 's:;10;:A:g' -e 's:;11;:B:g' -e 's:;12;:C:g' -e 's:;13;:D:g' -e 's:;14;:E:g' -e 's:;15;:F:g' |
+        sed -e 's:]4:]P:g' -e 's:;::g' -e 's:rgb::g' -e 's:/::g' -e 's/://g' -e 's:\\e\\\\::g'
     }
     __linux_c="$(__c <<<"${__linux_c}")"
     __tango_c="$(__c <<<"${__tango_c}")"
@@ -56,15 +57,15 @@ if [ "$TERM" = "linux" ]; then
     __black_ncs_c="$(__c <<<"${__black_ncs_c}")"
 fi
 
-alias    linuxColours="echo -en '${__linux_c}'"
-alias    tangoColours="echo -en '${__tango_c}'"
-alias  tangoidColours="echo -en '${__tangoid_c}'"
-alias   cobaltColours="echo -en '${__cobalt_c}'"
-alias   yellowColours="echo -en '${__yellow_c}'"
-alias      redColours="echo -en '${__red_c}'"
-alias      ncsColours="echo -en '${__ncs_c}'"
-alias lightNcsColours="echo -en '${__light_ncs_c}'"
-alias blackNcsColours="echo -en '${__black_ncs_c}'"
+alias    linuxColours='echo -en "${__linux_c}"'
+alias    tangoColours='echo -en "${__tango_c}"'
+alias  tangoidColours='echo -en "${__tangoid_c}"'
+alias   cobaltColours='echo -en "${__cobalt_c}"'
+alias   yellowColours='echo -en "${__yellow_c}"'
+alias      redColours='echo -en "${__red_c}"'
+alias      ncsColours='echo -en "${__ncs_c}"'
+alias lightNcsColours='echo -en "${__light_ncs_c}"'
+alias blackNcsColours='echo -en "${__black_ncs_c}"'
 
 if [ "$USER" = 'root' ]; then
     alias stdColours=redColours
@@ -80,7 +81,7 @@ PALETTE=
 
 function palette-set
 {
-    PALETTE="$("$@")"
+    PALETTE="$*"
 }
 
 function palette-reset
@@ -88,5 +89,5 @@ function palette-reset
     echo -n "$PALETTE"
 }
 
-palette-set stdColours
+palette-set `stdColours`
 
