@@ -1,3 +1,6 @@
+prompt_addons=()
+
+
 __prompt_block=""
 if [ "$TERM" = "linux" ]; then
     __prompt_block="\033[?8c"
@@ -263,6 +266,7 @@ function title-off
 
 function update-prompt
 {
+    local __invisible __addon
     __invisible="\[${__prompt_title}${__prompt_block}\033[00m\]"
     PS1=""
     if [ ! "${__prompt_username}" = "" ]; then
@@ -308,6 +312,9 @@ function update-prompt
     fi
     __sh="\[\033[00m\033[${__prompt_dollar_colour}m\]\\$\[\033[00m\]"
     __err="\[\033[${__prompt_error_colour}m\]"'$(__error $?)'"\[\033[00m\]"
+    for __addon in "${prompt_addons[@]}"; do
+	PS1="${P1}$(__addon)"
+    done
     PS1="${__invisible}${__err}${PS1}${__prompt_dual}${__sh} "
 }
 
