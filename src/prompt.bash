@@ -313,7 +313,7 @@ function update-prompt
     __sh="\[\033[00m\033[${__prompt_dollar_colour}m\]\\$\[\033[00m\]"
     __err="\[\033[${__prompt_error_colour}m\]"'$(__error $?)'"\[\033[00m\]"
     for __addon in "${prompt_addons[@]}"; do
-	PS1="${P1}$(__addon)"
+	PS1="${PS1}"'$('"${__addon}"')'
     done
     PS1="${__invisible}${__err}${PS1}${__prompt_dual}${__sh} "
 }
