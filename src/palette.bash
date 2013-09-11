@@ -33,7 +33,7 @@ __yellow_c='\e]4;0;rgb:30/30/08\e\\\e]4;1;rgb:CC/00/00\e\\\e]4;2;rgb:4E/9A/06\e\
 
 __red_c='\e]4;0;rgb:30/00/00\e\\\e]4;1;rgb:CD/65/6C\e\\\e]4;2;rgb:32/A6/79\e\\\e]4;3;rgb:CC/AD/47\e\\\e]4;4;rgb:24/95/BE\e\\\e]4;5;rgb:A4/6E/B0\e\\\e]4;6;rgb:00/A0/9F\e\\\e]4;7;rgb:D3/D7/CF\e\\\e]4;8;rgb:55/57/53\e\\\e]4;9;rgb:EB/5E/6A\e\\\e]4;10;rgb:0E/C2/87\e\\\e]4;11;rgb:F2/CA/38\e\\\e]4;12;rgb:00/AC/E0\e\\\e]4;13;rgb:C4/73/D1\e\\\e]4;14;rgb:00/C3/C7\e\\\e]4;15;rgb:EE/EE/EE\e\\'
 
-__ncs_c='\e]4;0;rgb:02/08/40\e\\\e]4;1;rgb:CD/65/6C\e\\\e]4;2;rgb:32/A6/79\e\\\e]4;3;rgb:CC/AD/47\e\\\e]4;4;rgb:24/95/BE\e\\\e]4;5;rgb:A4/6E/B0\e\\\e]4;6;rgb:00/A0/9F\e\\\e]4;7;rgb:D3/D7/CF\e\\\e]4;8;rgb:55/57/53\e\\\e]4;9;rgb:EB/5E76A\e\\\e]4;10;rgb:0E/C2/87\e\\\e]4;11;rgb:F2/CA/38\e\\\e]4;12;rgb:00/AC/E0\e\\\e]4;13;rgb:C4/73/D1\e\\\e]4;14;rgb:00/C3/C7\e\\\e]4;15;rgb:EE/EE/EE\e\\'
+__ncs_c='\e]4;0;rgb:02/08/40\e\\\e]4;1;rgb:CD/65/6C\e\\\e]4;2;rgb:32/A6/79\e\\\e]4;3;rgb:CC/AD/47\e\\\e]4;4;rgb:24/95/BE\e\\\e]4;5;rgb:A4/6E/B0\e\\\e]4;6;rgb:00/A0/9F\e\\\e]4;7;rgb:D3/D7/CF\e\\\e]4;8;rgb:55/57/53\e\\\e]4;9;rgb:EB/5E/6A\e\\\e]4;10;rgb:0E/C2/87\e\\\e]4;11;rgb:F2/CA/38\e\\\e]4;12;rgb:00/AC/E0\e\\\e]4;13;rgb:C4/73/D1\e\\\e]4;14;rgb:00/C3/C7\e\\\e]4;15;rgb:EE/EE/EE\e\\'
 
 __light_ncs_c='\e]4;0;rgb:0C/14/58\e\\\e]4;1;rgb:CD/65/6C\e\\\e]4;2;rgb:32/A6/79\e\\\e]4;3;rgb:CC/AD/47\e\\\e]4;4;rgb:24/95/BE\e\\\e]4;5;rgb:A4/6E/B0\e\\\e]4;6;rgb:00/A0/9F\e\\\e]4;7;rgb:D3/D7/CF\e\\\e]4;8;rgb:55/57/53\e\\\e]4;9;rgb:EB/5E/6A\e\\\e]4;10;rgb:0E/C2/87\e\\\e]4;11;rgb:F2/CA/38\e\\\e]4;12;rgb:00/AC/E0\e\\\e]4;13;rgb:C4/73/D1\e\\\e]4;14;rgb:00/C3/C7\e\\\e]4;15;rgb:EE/EE/EE\e\\'
 
