@@ -1,3 +1,18 @@
+#DESCRIPTION:  Cycling of working directories
+
+#DESCRIPTION:  Save the current working directory to the cycle
+#USAGE:        swd
+
+#DESCRIPTION:  Go to the next working directory in the cycle
+#USAGE:        cwd
+
+#DESCRIPTION:  Go to the previous working directory in the cycle
+#USAGE:        Cwd
+
+#DESCRIPTION:  Reset the cycle
+#USAGE:        zwd
+
+
 __dir_ring=()
 __ring_dir=0
 

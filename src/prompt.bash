@@ -1,3 +1,46 @@
+#DESCRIPTION:  A nicer default shell prompt line
+
+
+#DESCRIPTION:  Use full block cursor     Do not use full block cursor
+#USAGE         block-on                  block-off
+
+#DESCRIPTION:  Print username            Do not print username            Set colour of username
+#USAGE:        username-on               username-off                     username-colour <ansi-colour>
+
+#DESCRIPTION:  Print hostname            Do not print hostname            Set colour of hostname
+#USAGE:        hostname-on               hostname-off                     hostname-colour <ansi-colour>
+
+#DESCRIPTION:  Print terminal name       Do not print terminal name       Set colour of terminal name
+#USAGE:        pts-on                    pts-off                          pts-colour <ansi-colour>
+
+#DESCRIPTION:  Print git branch          Do not print git branch          Set colour of git branch
+#USAGE:        git-on                    git-off                          git-colour <ansi-colour>
+
+#DESCRIPTION:  Print directory           Do not print directory           Set colour of directory
+#USAGE:        dir-on                    dir-off                          dir-colour <ansi-colour>
+
+#DESCRIPTION:  Print directory tip       Print absolute directory         Print custom directory
+#USAGE:        dir-short                 dir-full                         dir-text <text>
+
+#DESCRIPTION:  Print current time        Do not print current time        Set colour of current time
+#USAGE:        clock-on                  clock-off                        clock-colour <ansi-colour>
+
+#DESCRIPTION:  Print battery status      Do not print battery status      Set colour of battery status
+#USAGE:        battery-on                battery-off                      battery-colour <ansi-colour>
+
+#DESCRIPTION:  Set title on terminal     Do not set title on terminal
+#USAGE         title-on                  title-off
+
+#DESCRIPTION:  Use two lines             Use a single line
+#USAGE         dual-on                   dual-off
+
+#DESCRIPTION:  Set colour of error code
+#USAGE         error-colour <ansi-colour>
+
+#DESCRIPTION:  Set colour of dollar/hash sign
+#USAGE         dollar-colour <ansi-colour>
+
+
 prompt_addons=()
 
 

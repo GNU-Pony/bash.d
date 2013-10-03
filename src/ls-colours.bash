@@ -1,3 +1,5 @@
+#DESCRIPTION:  Change the default colours for ls and similar programs
+
 if [ ! -z ls_rs ]; then  ls_rs="00"       ; fi
 if [ ! -z ls_di ]; then  ls_di="01;34"    ; fi
 if [ ! -z ls_ln ]; then  ls_ln="01;36"    ; fi

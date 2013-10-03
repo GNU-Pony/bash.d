@@ -1,3 +1,5 @@
+#DESCRIPTION: Utilise KMS support in ponysay when in a TTY
+
 if [ "$TERM" = "linux" ]; then
     function ponysay
     {
