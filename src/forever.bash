@@ -4,6 +4,7 @@
 function forever
 {
     time="$1"
+    shift 1
     while true; do
 	"$@"
 	sleep $time
