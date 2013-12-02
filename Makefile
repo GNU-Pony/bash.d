@@ -15,11 +15,11 @@ all:
 
 .PHONY: install
 install:
-	install -Dm755                -- "$(DESTDIR)$(PREFIX)$(DATA)/$(PKGNAME)"
+	install -dm755                -- "$(DESTDIR)$(PREFIX)$(DATA)/$(PKGNAME)"
 	install -m644 $(SRC_SRC)      -- "$(DESTDIR)$(PREFIX)$(DATA)/$(PKGNAME)"
-	install -Dm755                -- "$(DESTDIR)$(PREFIX)$(DOC)"
+	install -dm755                -- "$(DESTDIR)$(PREFIX)$(DOC)"
 	install -m644 README          -- "$(DESTDIR)$(PREFIX)$(DOC)/$(PKGNAME)"
-	install -Dm755                -- "$(DESTDIR)$(PREFIX)$(LICENSES)/$(PKGNAME)"
+	install -dm755                -- "$(DESTDIR)$(PREFIX)$(LICENSES)/$(PKGNAME)"
 	install -m644 COPYING LICENSE -- "$(DESTDIR)$(PREFIX)$(LICENSES)/$(PKGNAME)"
 
 
