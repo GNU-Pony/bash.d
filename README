@@ -2,20 +2,21 @@ Collection of script that can be sourced into an interactive GNU Bash session.
 
 Scripts:
 
-alert.bash             Function to open a graphical notification pupop
-autocompletion.bash    Enables autocompletion for commands
-cycled.bash            Commands similar to popd and pushd, but using cycles
-forever.bash           Command for running a command in an infinite loop
-git.bash               Git shorthand commands
-grep-colour.bash       Enable use of colour in grep, egrep and fgrep by default
-history.bash           Command history settings
-ls-aliases.bash        ls shorthand commands
-ls-colours.bash        Enable use of colour in ls by default
-mane.bash              Provides a mane() function
-mkcd.bash              Shorthand command for creating a directory and cd into it
-mod-shell.bash         Shorthand commands for editing ~/.bashrc
-palette.bash           TTY colour palettes
-ponysay.bash           Ponysay command with TTY colour palette preservation
-prompt.bash            Configurable PS1 (prompt)
-window.bash            Settings for windowed terminals
+alert.bash                 Function to open a graphical notification pupop
+autocompletion.bash        Enables autocompletion for commands
+cycled.bash                Commands similar to popd and pushd, but using cycles
+forever.bash               Command for running a command in an infinite loop
+git.bash                   Git shorthand commands
+grep-colour.bash           Enable use of colour in grep, egrep and fgrep by default
+history.bash               Command history settings
+ls-aliases.bash            ls shorthand commands
+ls-colours.bash            Enable use of colour in ls by default
+mane.bash                  Provides a mane() function
+mkcd.bash                  Shorthand command for creating a directory and cd into it
+mod-shell.bash             Shorthand commands for editing ~/.bashrc
+palette.bash               TTY colour palettes
+ponysay.bash               Ponysay command with TTY colour palette preservation
+productivity-aliases.bash  Miscellaneous productivity aliases
+prompt.bash                Configurable PS1 (prompt)
+window.bash                Settings for windowed terminals
 
