@@ -291,7 +291,7 @@ function __battery
 
 __prompt_title=""
 case "$TERM" in
-    xterm*|rxvt*)
+    xterm*|rxvt*|Eterm|aterm|kterm|gnome*)
 	__prompt_title="\033]0;\u@\h: \w  ||  $(tty)\a"
 	;;
 esac
@@ -307,10 +307,28 @@ function title-off
 }
 
 
+__screen_title=""
+case "$TERM" in
+    screen)
+	__screen_title="\033_\u@\h: \w  ||  $(tty)\033\\"
+	;;
+esac
+function screen-title-on
+{
+    __screen_title="\033_\u@\h: \w  ||  $(tty)\033\\"
+    update-prompt
+}
+function screen-title-off
+{
+    __screen_title=""
+    update-prompt
+}
+
+
 function update-prompt
 {
     local __invisible __addon
-    __invisible="\[${__prompt_title}${__prompt_block}\033[00m\]"
+    __invisible="\[${__prompt_title}${__screen_title}${__prompt_block}\033[00m\]"
     PS1=""
     if [ ! "${__prompt_username}" = "" ]; then
         PS1="${PS1}\[\033[${__prompt_username_colour}m\]${__prompt_username}\[\033[00m\]"
