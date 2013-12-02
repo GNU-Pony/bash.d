@@ -364,3 +364,8 @@ function update-prompt
 
 update-prompt
 
+
+PS2='\[\e[01;31m\]> \[\e[00m\]'
+PS3='\[\e[01;31m\]> \[\e[00m\]'
+PS4='\[\e[01;31m\]+ \[\e[00m\]'
+
