@@ -8,6 +8,7 @@ cycled.bash                Commands similar to popd and pushd, but using cycles
 forever.bash               Command for running a command in an infinite loop
 git.bash                   Git shorthand commands
 grep-colour.bash           Enable use of colour in grep, egrep and fgrep by default
+harden.bash                Safeguards to prevent security exploitations
 history.bash               Command history settings
 ls-aliases.bash            ls shorthand commands
 ls-colours.bash            Enable use of colour in ls by default
