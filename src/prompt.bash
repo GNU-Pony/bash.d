@@ -158,6 +158,20 @@ function git-colour
 }
 
 
+function __git
+{
+    exec 2>/dev/null
+    if git status >&2; then
+	status="$(git status -s -b | head -n 1)"
+	if [ "$(echo "${status}" | cut -d ' ' -f 3)" = '[ahead' ]; then
+	    echo "${status}" | cut -d ' ' -f 2
+	else
+	    echo "${status}" | cut -d ' ' -f 2 | cut -d . -f 1
+	fi
+    fi
+}
+
+
 __prompt_dir="\w"
 function dir-on
 {
@@ -383,11 +397,9 @@ function update-prompt
     fi
     if [ "${__prompt_git}" = "1" ]; then
         if [ ! "${PS1}" = "" ]; then
-            PS1="${PS1}"'$(git status -b -s 2>/dev/null >&2 && echo -n : || echo -n "")'
+            PS1="${PS1}"'$(git status 2>/dev/null >&2 && echo -n : || echo -n "")'
         fi
-        __git='$((git status -b -s 2>/dev/null | cut -d \  -f 2 | head -n 1) || echo -n "")'
-        __git="\[\033[${__prompt_git_colour}m\]${__git}\[\033[00m\]"
-        PS1="${PS1}${__git}"
+        PS1="${PS1}\[\033[${__prompt_git_colour}m\]"'$(__git)'"\[\033[00m\]"
     fi
     if [ ! "${__prompt_dir}" = "" ]; then
         if [ ! "${PS1}" = "" ]; then
