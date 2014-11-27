@@ -1,38 +1,41 @@
 #DESCRIPTION:  A nicer default shell prompt line
 
 
-#DESCRIPTION:  Use full block cursor     Do not use full block cursor
-#USAGE         block-on                  block-off
+#DESCRIPTION:  Use full block cursor       Do not use full block cursor
+#USAGE         block-on                    block-off
 
-#DESCRIPTION:  Print username            Do not print username            Set colour of username
-#USAGE:        username-on               username-off                     username-colour <ansi-colour>
+#DESCRIPTION:  Print username              Do not print username              Set colour of username
+#USAGE:        username-on                 username-off                       username-colour <ansi-colour>
 
-#DESCRIPTION:  Print hostname            Do not print hostname            Set colour of hostname
-#USAGE:        hostname-on               hostname-off                     hostname-colour <ansi-colour>
+#DESCRIPTION:  Print hostname              Do not print hostname              Set colour of hostname
+#USAGE:        hostname-on                 hostname-off                       hostname-colour <ansi-colour>
 
-#DESCRIPTION:  Print terminal name       Do not print terminal name       Set colour of terminal name
-#USAGE:        pts-on                    pts-off                          pts-colour <ansi-colour>
+#DESCRIPTION:  Print terminal name         Do not print terminal name         Set colour of terminal name
+#USAGE:        pts-on                      pts-off                            pts-colour <ansi-colour>
 
-#DESCRIPTION:  Print git branch          Do not print git branch          Set colour of git branch
-#USAGE:        git-on                    git-off                          git-colour <ansi-colour>
+#DESCRIPTION:  Print git branch            Do not print git branch            Set colour of git branch
+#USAGE:        git-on                      git-off                            git-colour <ansi-colour>
 
-#DESCRIPTION:  Print directory           Do not print directory           Set colour of directory
-#USAGE:        dir-on                    dir-off                          dir-colour <ansi-colour>
+#DESCRIPTION:  Print directory             Do not print directory             Set colour of directory
+#USAGE:        dir-on                      dir-off                            dir-colour <ansi-colour>
 
-#DESCRIPTION:  Print directory tip       Print absolute directory         Print custom directory
-#USAGE:        dir-short                 dir-full                         dir-text <text>
+#DESCRIPTION:  Print directory tip         Print absolute directory           Print custom directory
+#USAGE:        dir-short                   dir-full                           dir-text <text>
 
-#DESCRIPTION:  Print current time        Do not print current time        Set colour of current time
-#USAGE:        clock-on                  clock-off                        clock-colour <ansi-colour>
+#DESCRIPTION:  Print current time          Do not print current time          Set colour of current time
+#USAGE:        clock-on                    clock-off                          clock-colour <ansi-colour>
 
-#DESCRIPTION:  Print battery status      Do not print battery status      Set colour of battery status
-#USAGE:        battery-on                battery-off                      battery-colour <ansi-colour>
+#DESCRIPTION:  Print battery status        Do not print battery status        Set colour of battery status
+#USAGE:        battery-on                  battery-off                        battery-colour <ansi-colour>
 
-#DESCRIPTION:  Set title on terminal     Do not set title on terminal
-#USAGE         title-on                  title-off
+#DESCRIPTION:  Print featherweight status  Do not print featherweight status  Set the used colour
+#USAGE         featherweight-on            featherweight-off                  featherweight-colour <ansi-colour>
 
-#DESCRIPTION:  Use two lines             Use a single line
-#USAGE         dual-on                   dual-off
+#DESCRIPTION:  Set title on terminal       Do not set title on terminal
+#USAGE         title-on                    title-off
+
+#DESCRIPTION:  Use two lines               Use a single line
+#USAGE         dual-on                     dual-off
 
 #DESCRIPTION:  Set colour of error code
 #USAGE         error-colour <ansi-colour>
@@ -289,6 +292,39 @@ function __battery
 }
 
 
+__prompt_featherweight='$(__featherweight)'
+function featherweight-on
+{
+    __prompt_featherweight='$(__featherweight)'
+    update-prompt
+}
+function featherweight-off
+{
+    __prompt_featherweight=''
+    update-prompt
+}
+
+
+__prompt_featherweight_colour="36"
+function featherweight-colour
+{
+    __prompt_featherweight_colour="$*"
+    update-prompt
+}
+
+
+function __featherweight
+{
+    local status
+    if [ -r ~/.var/lib/featherweight/status ]; then
+       status="$(cat ~/.var/lib/featherweight/status)"
+       if [ ! "${status}" = "0" ]; then
+	   echo "(fw: ${status})"
+       fi
+    fi
+}
+
+
 __prompt_title=""
 case "$TERM" in
     xterm*|rxvt*|Eterm|aterm|kterm|gnome*)
@@ -370,6 +406,12 @@ function update-prompt
             PS1="${PS1} "
         fi
         PS1="${PS1}\[\033[${__prompt_battery_colour}m\]${__prompt_battery}\[\033[00m\]"
+    fi
+    if [ ! "${__prompt_featherweight}" = "" ]; then
+        if [ ! "${PS1}" = "" ]; then
+            PS1="${PS1} "
+        fi
+        PS1="${PS1}\[\033[${__prompt_featherweight_colour}m\]${__prompt_featherweight}\[\033[00m\]"
     fi
     __sh="\[\033[00m\033[${__prompt_dollar_colour}m\]\\$\[\033[00m\]"
     __err="\[\033[${__prompt_error_colour}m\]"'$(__error $?)'"\[\033[00m\]"
