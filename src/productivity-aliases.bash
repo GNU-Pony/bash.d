@@ -15,16 +15,27 @@ alias mm='make -j -B'
 
 function i()
 {
-    info "$@" invoking
+    prog="$1"
+    shift 1
+    info "($prog)" invoking "$@"
 }
 
+#DESCRIPTION:  Open a programs info manual and try to select a usage page
+#USAGE:        i [program] [node]
+
+function iu()
+{
+    info --usage "$@"
+}
 
 #DESCRIPTION:  Open a programs info manual
 #USAGE:        i [program] [node]
 
 function ii()
 {
-    info "$@"
+    prog="$1"
+    shift 1
+    info "($prog)" "$@"
 }
 
 
