@@ -70,7 +70,7 @@ alias blackNcsColours='echo -en "${__black_ncs_c}"'
 if [ "$USER" = 'root' ]; then
     alias stdColours=redColours
 else
-    alias stdColours=lightNcsColours
+    alias stdColours=blackNcsColours
 fi
 
 if [ "$COLORTERM" = '' ]; then
