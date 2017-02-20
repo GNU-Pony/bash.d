@@ -10,6 +10,9 @@
 #DESCRIPTION:  Print hostname              Do not print hostname              Set colour of hostname
 #USAGE:        hostname-on                 hostname-off                       hostname-colour <ansi-colour>
 
+#DESCRIPTION:  Print IP address in place hostname
+#USAGE:        hostname-ip
+
 #DESCRIPTION:  Print terminal name         Do not print terminal name         Set colour of terminal name
 #USAGE:        pts-on                      pts-off                            pts-colour <ansi-colour>
 
@@ -96,6 +99,12 @@ __prompt_hostname="1"
 function hostname-on
 {
     __prompt_hostname="1"
+    update-prompt
+}
+function hostname-ip
+{
+    __prompt_hostname="$( (ifconfig | sed -n 's/^[\t ]*inet[\t ][\t ]*\([^\t ]*\).*$/\1/p' |
+                          sed '/^127\.0\.0\.1$/d' ; echo 127.0.0.1) | sed 1q )"
     update-prompt
 }
 function hostname-off
@@ -388,6 +397,11 @@ function update-prompt
             PS1="${PS1}@"
         fi
         PS1="${PS1}\[\033[${__prompt_hostname_colour}m\]\h\[\033[00m\]"
+    elif [ ! "${__prompt_hostname}" = "0" ]; then
+        if [ ! "${PS1}" = "" ]; then
+            PS1="${PS1}@"
+        fi
+        PS1="${PS1}\[\033[${__prompt_hostname_colour}m\]${__prompt_hostname}\[\033[00m\]"
     fi
     if [ "${__prompt_pts}" = "1" ]; then
         if [ ! "${PS1}" = "" ]; then
