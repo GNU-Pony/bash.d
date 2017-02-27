@@ -41,8 +41,7 @@ __black_ncs_c='\e]4;0;rgb:00/00/00\e\\\e]4;1;rgb:CD/65/6C\e\\\e]4;2;rgb:32/A6/79
 
 
 if [ "$TERM" = "linux" ]; then
-    function __c
-    {
+    __c () {
 	sed -e 's:;10;:A:g' -e 's:;11;:B:g' -e 's:;12;:C:g' -e 's:;13;:D:g' -e 's:;14;:E:g' -e 's:;15;:F:g' |
         sed -e 's:]4:]P:g' -e 's:;::g' -e 's:rgb::g' -e 's:/::g' -e 's/://g' -e 's:\\e\\\\::g'
     }
@@ -79,13 +78,11 @@ fi
 
 PALETTE=
 
-function palette-set
-{
+palette-set () {
     PALETTE="$*"
 }
 
-function palette-reset
-{
+palette-reset () {
     echo -n "$PALETTE"
 }
 

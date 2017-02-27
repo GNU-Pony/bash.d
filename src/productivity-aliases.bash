@@ -11,28 +11,25 @@ alias mm='make -j -B'
 
 
 #DESCRIPTION:  Open a programs info manual and open the invoking chapter
-#USAGE:        i [program]
+#USAGE:        iv [program]
 
-function i()
-{
+iv () {
     prog="$1"
     shift 1
     info "($prog)" invoking "$@"
 }
 
 #DESCRIPTION:  Open a programs info manual and try to select a usage page
-#USAGE:        i [program] [node]
+#USAGE:        iu [program] [node]
 
-function iu()
-{
+iu () {
     info --usage "$@"
 }
 
 #DESCRIPTION:  Open a programs info manual
 #USAGE:        i [program] [node]
 
-function ii()
-{
+i () {
     prog="$1"
     shift 1
     info "($prog)" "$@"
@@ -54,8 +51,7 @@ alias _="sudo"
 #DESCRIPTION:  Pipe `yes` to a command
 #USAGE:        y [command]
 
-function y()
-{
+y () {
     yes | "$@"
 }
 

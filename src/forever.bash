@@ -1,8 +1,7 @@
 # DESCRIPTION:  Run a command in a infinite loop with a sleep between executions
 # USAGE:        forever "<arguments for sleep>" <command>
 
-function forever
-{
+forever () {
     time="$1"
     shift 1
     while true; do

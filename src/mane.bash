@@ -1,8 +1,7 @@
 #DESCRIPTION:  Use full block cursor and a palette and clears the screen in TTY and sets TERM to xterm-256color instead of xterm
 #USAGE:        mane
 
-function mane
-{
+mane () {
     if [ "$TERM" = "linux" ]; then
         echo -en "\e[?8c"
         if [ ! -z "$PALETTE" ]; then

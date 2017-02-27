@@ -28,33 +28,28 @@
 alias gitlog="git log --graph --decorate"
 alias gitlogg="git log --graph --decorate --full-history"
 
-function gitcom
-{
+gitcom () {
     git commit --signoff -m "$*"
 }
 
-function gitcomm
-{
+gitcomm () {
     git commit --signoff -S"$GPG_KEY" -m "$*"
 }
 
-function ge
-{
+ge () {
     if [ -z "$EDITOR" ]; then
-	echo 'No default editor is set, please configure the environment variable EDITOR'
+	printf '\e[1;31m%s\e[0m\n' 'No default editor is set, please configure the environment variable EDITOR'
     else
-	$EDITOR "$@"
-	git add "$@"
+	$EDITOR -- "$@"
+	git add -- "$@"
     fi
 }
 
-function gitpush
-{
+gitpush () {
     git push -u origin `___git_branch_`
 }
 
-function gitpull
-{
+gitpull () {
     __gb_=`___git_branch_`
     git checkout "$1" &&
     git pull &&
@@ -62,8 +57,7 @@ function gitpull
     git pull . "$1"
 }
 
-function gitp
-{
+gitp () {
     __gb_=`___git_branch_`
     git pull &&
     git checkout "$1" &&
@@ -73,16 +67,13 @@ function gitp
 
 
 
-function _____gp___bashrc_
-{
-    echo "$2"
+_____gp___bashrc_ () {
+    printf '%s\n' "$2"
 }
-function _____gp__bashrc_
-{
+_____gp__bashrc_ () {
     _____gp___bashrc_ `git status -b -s 2>/dev/null`
 }
-function ___git_branch_
-{
-    echo `_____gp__bashrc_ | cut -d . -f 1`
+___git_branch_ () {
+    printf '%s\n' `_____gp__bashrc_ | cut -d . -f 1`
 }
 

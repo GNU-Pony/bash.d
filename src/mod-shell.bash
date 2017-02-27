@@ -4,13 +4,11 @@
 #DESCRIPTION:  Edit the shell configurations
 #USAGE:        edsh
 
-function resh
-{
-    source ~/.bashrc
+resh () {
+    . ~/.bashrc
 }
 
-function edsh
-{
+edsh () {
     if [ -z "$EDITOR" ]; then
 	echo 'No default editor is set, please configure the environment variable EDITOR'
     else

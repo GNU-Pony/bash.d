@@ -16,13 +16,11 @@
 __dir_ring=()
 __ring_dir=0
 
-function swd
-{
+swd () {
     __dir_ring+=( "$(pwd)" )
 }
 
-function cwd
-{
+cwd () {
     if [ ! ${#__dir_ring[@]} = 0 ]; then
         (( __ring_dir++ ))
         if [ $__ring_dir = ${#__dir_ring[@]} ]; then
@@ -32,8 +30,7 @@ function cwd
     fi
 }
 
-function Cwd
-{
+Cwd () {
     if [ ! ${#__dir_ring[@]} = 0 ]; then
         (( __ring_dir-- ))
         if [ $__ring_dir = -1 ]; then
@@ -43,8 +40,7 @@ function Cwd
     fi
 }
 
-function zwd
-{
+zwd () {
     __dir_ring=()
     __ring_dir=0
 }

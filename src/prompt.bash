@@ -54,26 +54,22 @@ __prompt_block=""
 if [ "$TERM" = "linux" ]; then
     __prompt_block="\033[?8c"
 fi
-function block-on
-{
+block-on () {
     __prompt_block="\033[?8c"
     update-prompt
 }
-function block-off
-{
+block-off () {
     __prompt_block=""
     update-prompt
 }
 
 
 __prompt_username="\u"
-function username-on
-{
+username-on () {
     __prompt_username="\u"
     update-prompt
 }
-function username-off
-{
+username-off () {
     __prompt_username=""
     update-prompt
 }
@@ -88,35 +84,30 @@ if [ "$USER" = "root" ]; then
 elif [ "$TERM" = "linux" ]; then
     __prompt_username_colour="34;01"
 fi
-function username-colour
-{
+username-colour () {
     __prompt_username_colour="$*"
     update-prompt
 }
 
 
 __prompt_hostname="1"
-function hostname-on
-{
+hostname-on () {
     __prompt_hostname="1"
     update-prompt
 }
-function hostname-ip
-{
+hostname-ip () {
     __prompt_hostname="$( (ifconfig | sed -n 's/^[\t ]*inet[\t ][\t ]*\([^\t ]*\).*$/\1/p' |
                           sed '/^127\.0\.0\.1$/d' ; echo 127.0.0.1) | sed 1q )"
     update-prompt
 }
-function hostname-off
-{
+hostname-off () {
     __prompt_hostname="0"
     update-prompt
 }
 
 
 __prompt_hostname_colour="34"
-function hostname-colour
-{
+hostname-colour () {
     __prompt_hostname_colour="$*"
     update-prompt
 }
@@ -126,49 +117,42 @@ __prompt_pts="0"
 if [ "$TERM" = "linux" ]; then
     __prompt_pts="1"
 fi
-function pts-on
-{
+pts-on () {
     __prompt_pts="1"
     update-prompt
 }
-function pts-off
-{
+pts-off () {
     __prompt_pts="0"
     update-prompt
 }
 
 
 __prompt_pts_colour="36"
-function pts-colour
-{
+pts-colour () {
     __prompt_pts_colour="$*"
     update-prompt
 }
 
 
 __prompt_git="1"
-function git-on
-{
+git-on () {
     __prompt_git="1"
     update-prompt
 }
-function git-off
-{
+git-off () {
     __prompt_git="0"
     update-prompt
 }
 
 
 __prompt_git_colour="32"
-function git-colour
-{
+git-colour () {
     __prompt_git_colour="$*"
     update-prompt
 }
 
 
-function __git
-{
+__git () {
     exec 2>/dev/null
     if git status >&2; then
 	status="$(git status -s -b | head -n 1)"
@@ -182,70 +166,59 @@ function __git
 
 
 __prompt_dir="\w"
-function dir-on
-{
+dir-on () {
     __prompt_dir="\w"
     update-prompt
 }
-function dir-short
-{
+dir-short () {
     __prompt_dir="\W"
     update-prompt
 }
-function dir-full
-{
+dir-full () {
     __prompt_dir='$(pwd)'
     update-prompt
 }
-function dir-text
-{
+dir-text () {
     __prompt_dir="$(sed -e 's:\\:\\\\:g' <<<"$*")"
     update-prompt
 }
-function dir-off
-{
+dir-off () {
     __prompt_dir=""
     update-prompt
 }
 
 
 __prompt_dir_colour="35"
-function dir-colour
-{
+dir-colour () {
     __prompt_dir_colour="$*"
     update-prompt
 }
 
 
 __prompt_clock="(\t)"
-function clock-on
-{
+clock-on () {
     __prompt_clock="(\t)"
     update-prompt
 }
-function clock-off
-{
+clock-off () {
     __prompt_clock=""
     update-prompt
 }
 
 
 __prompt_clock_colour="33"
-function clock-colour
-{
+clock-colour () {
     __prompt_clock_colour="$*"
     update-prompt
 }
 
 
 __prompt_dual="\[\033[00m\]\n\[\033[1K\]"
-function dual-on
-{
+dual-on () {
     __prompt_dual="\[\033[00m\]\n\[\033[1K\]"
     update-prompt
 }
-function dual-off
-{
+dual-off () {
     __prompt_dual=""
     update-prompt
 }
@@ -255,23 +228,20 @@ __prompt_dollar_colour="01;34"
 if [ "$USER" = "root" ]; then
     __prompt_dollar_colour="01;31"
 fi
-function dollar-colour
-{
+dollar-colour () {
     __prompt_dollar_colour="$*"
     update-prompt
 }
 
 
 __prompt_error_colour="01;31"
-function error-colour
-{
+error-colour () {
     __prompt_error_colour="$*"
     update-prompt
 }
 
 
-function __error
-{
+__error () {
     if [ "$1" = "0" ]; then
         echo -n ""
     else
@@ -280,29 +250,25 @@ function __error
 }
 
 
-__prompt_bettery=""
-function battery-on
-{
+__prompt_battery=""
+battery-on () {
     __prompt_battery='$(__battery)'
     update-prompt
 }
-function battery-off
-{
+battery-off () {
     __prompt_battery=""
     update-prompt
 }
 
 
 __prompt_battery_colour="33"
-function battery-colour
-{
+battery-colour () {
     __prompt_battery_colour="$*"
     update-prompt
 }
 
 
-function __battery
-{
+__battery () {
     local __first=1
     acpi --battery 2>/dev/null | while read info; do
         if [ $__first = 1 ]; then
@@ -316,28 +282,24 @@ function __battery
 
 
 __prompt_featherweight='$(__featherweight)'
-function featherweight-on
-{
+featherweight-on () {
     __prompt_featherweight='$(__featherweight)'
     update-prompt
 }
-function featherweight-off
-{
+featherweight-off () {
     __prompt_featherweight=''
     update-prompt
 }
 
 
 __prompt_featherweight_colour="36"
-function featherweight-colour
-{
+featherweight-colour () {
     __prompt_featherweight_colour="$*"
     update-prompt
 }
 
 
-function __featherweight
-{
+__featherweight () {
     local status
     if [ -r ~/.var/lib/featherweight/status ]; then
        status="$(cat ~/.var/lib/featherweight/status)"
@@ -354,13 +316,11 @@ case "$TERM" in
 	__prompt_title="\033]0;\u@\h: \w  ||  $(tty)\a"
 	;;
 esac
-function title-on
-{
+title-on () {
     __prompt_title="\033]0;\u@\h: \w  ||  $(tty)\a"
     update-prompt
 }
-function title-off
-{
+title-off () {
     __prompt_title=""
     update-prompt
 }
@@ -372,20 +332,17 @@ case "$TERM" in
 	__screen_title="\033_\u@\h: \w  ||  $(tty)\033\\"
 	;;
 esac
-function screen-title-on
-{
+screen-title-on () {
     __screen_title="\033_\u@\h: \w  ||  $(tty)\033\\"
     update-prompt
 }
-function screen-title-off
-{
+screen-title-off () {
     __screen_title=""
     update-prompt
 }
 
 
-function update-prompt
-{
+update-prompt () {
     local __invisible __addon
     __invisible="\[${__prompt_title}${__screen_title}${__prompt_block}\033[00m\]"
     PS1=""

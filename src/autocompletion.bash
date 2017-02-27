@@ -3,8 +3,7 @@
 # DESCRIPTION:  reload autocompletion scripts and load new ones
 # USAGE:        recomplete
 
-function recomplete()
-{
+recomplete () {
     if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 	. /etc/bash_completion
     fi
@@ -16,7 +15,11 @@ function recomplete()
 	    . $completionscript
 	done
     fi
-
+    if [ -d ~/.local/share/bash_completion.d ] && ! shopt -oq posix; then
+	for completionscript in ~/.local/share/bash_completion.d/*; do
+	    . $completionscript
+	done
+    fi
 }
 
 recomplete
