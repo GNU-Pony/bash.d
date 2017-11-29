@@ -12,12 +12,16 @@ recomplete () {
     fi
     if [ -d ~/.local/bash_completion.d ] && ! shopt -oq posix; then
 	for completionscript in ~/.local/bash_completion.d/*; do
-	    . $completionscript
+	    if [ -r "$completionscript" ]; then
+		. "$completionscript"
+	    fi
 	done
     fi
     if [ -d ~/.local/share/bash_completion.d ] && ! shopt -oq posix; then
 	for completionscript in ~/.local/share/bash_completion.d/*; do
-	    . $completionscript
+	    if [ -r "$completionscript" ]; then
+		. "$completionscript"
+	    fi
 	done
     fi
 }
