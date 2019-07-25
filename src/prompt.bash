@@ -152,7 +152,7 @@ git-colour () {
 }
 
 
-__git () {
+__prompt_func_git () {
     exec 2>/dev/null
     if git status >&2; then
 	status="$(git status -s -b | head -n 1)"
@@ -241,7 +241,7 @@ error-colour () {
 }
 
 
-__error () {
+__prompt_func_error () {
     if [ "$1" = "0" ]; then
         echo -n ""
     else
@@ -252,7 +252,7 @@ __error () {
 
 __prompt_battery=""
 battery-on () {
-    __prompt_battery='$(__battery)'
+    __prompt_battery='$(__prompt_func_battery)'
     update-prompt
 }
 battery-off () {
@@ -268,7 +268,7 @@ battery-colour () {
 }
 
 
-__battery () {
+__prompt_func_battery () {
     local __first=1
     acpi --battery 2>/dev/null | while read info; do
         if [ $__first = 1 ]; then
@@ -281,9 +281,9 @@ __battery () {
 }
 
 
-__prompt_featherweight='$(__featherweight)'
+__prompt_featherweight='$(__prompt_func_featherweight)'
 featherweight-on () {
-    __prompt_featherweight='$(__featherweight)'
+    __prompt_featherweight='$(__prompt_func_featherweight)'
     update-prompt
 }
 featherweight-off () {
@@ -299,7 +299,7 @@ featherweight-colour () {
 }
 
 
-__featherweight () {
+__prompt_func_featherweight () {
     local status
     if [ -r ~/.var/lib/featherweight/status ]; then
        status="$(cat ~/.var/lib/featherweight/status)"
@@ -370,7 +370,7 @@ update-prompt () {
         if [ ! "${PS1}" = "" ]; then
             PS1="${PS1}"'$(git status 2>/dev/null >&2 && echo -n : || echo -n "")'
         fi
-        PS1="${PS1}\[\033[${__prompt_git_colour}m\]"'$(__git)'"\[\033[00m\]"
+        PS1="${PS1}\[\033[${__prompt_git_colour}m\]"'$(__prompt_func_git)'"\[\033[00m\]"
     fi
     if [ ! "${__prompt_dir}" = "" ]; then
         if [ ! "${PS1}" = "" ]; then
@@ -397,7 +397,7 @@ update-prompt () {
         PS1="${PS1}\[\033[${__prompt_featherweight_colour}m\]${__prompt_featherweight}\[\033[00m\]"
     fi
     __sh="\[\033[00m\033[${__prompt_dollar_colour}m\]\\$\[\033[00m\]"
-    __err="\[\033[${__prompt_error_colour}m\]"'$(__error $?)'"\[\033[00m\]"
+    __err="\[\033[${__prompt_error_colour}m\]"'$(__prompt_func_error $?)'"\[\033[00m\]"
     for __addon in "${prompt_addons[@]}"; do
 	PS1="${PS1}$(${__addon})"
     done
